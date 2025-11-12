@@ -10,7 +10,7 @@ pipeline {
         stage('Parando los servicios'){
             steps {
                 sh '''
-                  docker compose -p democopy down || true
+                  docker compose -p SGU-AAO-10C down || true
                 '''
             }
         }
@@ -18,7 +18,7 @@ pipeline {
         stage('Eliminando imagenes antiguas'){
             steps {
                 sh '''
-                   IMAGES=$(docker images --filter "label=com.docker.compose.project=democopy" -q)
+                   IMAGES=$(docker images --filter "label=com.docker.compose.project=SGU-AAO-10C" -q)
                    if [-n '$IMAGES' ]; then
                       docker images rmi $IMAGES
                    else
@@ -37,7 +37,7 @@ pipeline {
         stage('Desplegando la actualizacion'){
             steps {
                 sh '''
-                   docker compose -p democopy up -d --build
+                   docker compose -p SGU-AAO-10C up -d --build
                 '''
             }
         }
